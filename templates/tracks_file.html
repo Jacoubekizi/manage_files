@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+
+    {% block title %}
+        Fiels
+    {% endblock %}
+
+    {% block breadcrumb %}
+        <li class="breadcrumb-item active">الملفات</li>
+        
+    {% endblock %}
+    
+    {% block content %}
+
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th>تسم الملف</th>
+                    <th>وصف الملف</th>
+                    <th>اسم المستخدم</th>
+                    <th>نوع الملف</th>
+                    <th>حالة الملف</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for file in files %}
+                <tr>
+                    <td> <a href="{% static 'files/Pilgrim-2024-05-04_2_BkxhJAb.xlsx' %}">{{file.file.file}}</a><small class="text-muted d-block"></small>
+                    </td>
+                    <td>{{file.file.note}}</td>
+                    <td>{{file.user.username}}</td>
+                    <td>{{file.file.type_file}}</td>
+                    <td>
+                        {% if file.status == '1' %}
+                        {{'طلب مراجعة مشرف' | escape}}
+                        {% elif file.status == '2' %}
+                        {{ 'طلب تعديل من مساعد' | escape}}
+                        {% elif file.status == '3' %}
+                        {{ 'رفض' | escape}}
+                        {% elif file.status == '4' %}
+                        {{'طلب مراجعة مدير'| escape}}
+                        {% elif file.status == '5' %}
+                        {{'تم التحقق' | escape}}
+                        {% elif file.status == '6' %}
+                        {{ 'طلب مراجعة مدقق' | escape}}
+                        {% else %}
+                        {{'قيد المعالجة' | escape}}
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endblock %}

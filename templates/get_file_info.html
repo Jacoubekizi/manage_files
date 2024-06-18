@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+    {% block title %}
+        Info_file
+    {% endblock %}
+
+    {% block breadcrumb %}
+        <li class="breadcrumb-item active">معلومات حول الملف</li>
+        
+    {% endblock %}
+    
+    {% block content %}
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th>اسم الملف</th>
+                    <th>اسم المستخدم</th>
+                    <th>نوع الملف</th>
+                    <th>ملاحظات</th>
+                    <th>حالة الملف</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><a href="{% url 'edit_file' file.id %}">{{file.file}}</a>
+                        <small class="text-muted d-block"></small>
+                    </td>
+                    <td>{{file.user.username}}</td>
+                    <td>{{file.type_file}}</td>
+                    <td>{{file.note}}</td>
+                    <td>
+                        {% if file.statusfile_set.all.first.status %}
+                        {{file.statusfile_set.all.first.status}}
+                        {% else %}
+                        {{'قيد المعالجة '| escape}} 
+                        {% endif %}
+                    </td> 
+                </tr>
+            </tbody>
+        </table>
+    {% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+    {% block title %}
+        Fiels
+    {% endblock %}
+
+    {% block breadcrumb %}
+        <li class="breadcrumb-item active">جميع الملفات</li>
+        
+    {% endblock %}
+    
+    {% block content %}
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th style="text-align: center;">اسم الملف</th>
+                    <th style="text-align: center;">اسم المستخدم/th>
+                    <th style="text-align: center;">ملاحظات</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for file in files %}
+                <tr>
+                    <td style="text-align: center;">{{file.file}}<small class="text-muted d-block"></small>
+                    </td>
+                    <td style="text-align: center;">{{file.user.username}}</td>
+                    <td style="text-align: center;">{{file.description}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endblock %}

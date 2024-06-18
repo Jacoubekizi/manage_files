@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+    {% block title %}
+        Edit File
+    {% endblock %}
+
+    {% block breadcrumb %}
+        <li class="breadcrumb-item "><a href="{% url 'home' %}">الملفات</a> </li>
+        <li class="breadcrumb-item active">تعديل ملف</li>
+    {% endblock %}
+
+    {% block content %}
+
+    <form action="" method='POST' novalidate class="mb-4">
+        {% csrf_token %}
+        {% include 'includes/form.html' %}
+        <button type="submit" class="btn btn-success">تعديل</button>
+    </form>
+
+    {% endblock %}

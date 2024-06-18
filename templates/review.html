@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+    {% block title %}
+        Review File
+    {% endblock %}
+
+    {% block breadcrumb %}
+        <li class="breadcrumb-item"><a href="{% url 'home' %}">الملفات</a></li>
+        <li class="breadcrumb-item active">مراجعة ملف</li>
+    {% endblock %}
+
+    {% block content %}
+        <form method='POST' novalidate enctype="multipart/form-data">
+            {% csrf_token %}
+            {% include 'includes/form.html' %}
+            <button type="submit" class="btn btn-success">ارسال</button>
+        </form>
+    {% endblock %}

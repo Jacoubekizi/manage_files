@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+    {% block title %}
+        New File
+    {% endblock %}
+
+    {% block breadcrumb %}
+        <li class="breadcrumb-item"><a href="{% url 'home' %}">الملفات</a></li>
+        <li class="breadcrumb-item active">ملف جديد</li>
+    {% endblock %}
+
+    {% block content %}
+        <form method='POST' novalidate enctype="multipart/form-data">
+            {% csrf_token %}
+            {% include 'includes/form.html' %}
+            <button type="submit" class="btn btn-success">اضافة</button>
+        </form>
+    {% endblock %}
