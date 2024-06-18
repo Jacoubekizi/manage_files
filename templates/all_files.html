@@ -25,7 +25,8 @@
             <tbody>
                 {% for file in files %}
                 <tr>
-                    <td> <a href="{% static 'files/Pilgrim-2024-05-04_2_BkxhJAb.xlsx' %}">{{file.file.file}}</a><small class="text-muted d-block"></small>
+                    <td> <a href="{% url 'file_info' file.file.id %}">{{file.file.file}}</a>
+                        <small class="text-muted d-block"></small><small class="btn btn-success" style="background-color: white;"><a href="{% url 'download-file' file.file.id %}">download</a></small>
                     </td>
                     <td>{{file.file.note}}</td>
                     <td>{{file.user.username}}</td>

@@ -29,7 +29,7 @@
                 {% for file in files %}
                 <tr>
                     <td><a href="{% url 'file_info' file.file.id %}">{{file.file.file}}</a>
-                        <small class="text-muted d-block"></small>
+                        <small class="text-muted d-block"></small><small  class="btn btn-success" style="background-color: white;"><a href="{% url 'download-file' file.file.id %}">download</a></small>
                     </td>
                     <td>{{file.note}}</td>
                     <td>{{file.user.username}}</td>

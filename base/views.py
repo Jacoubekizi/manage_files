@@ -1,9 +1,22 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 from django.contrib.auth.decorators import login_required
+from django.http import FileResponse
 from django.contrib.auth import logout
 from .froms import *
 from django.db.models import Q
+
 # Create your views here.
+
+
+def downloadsheet(request, file_id):
+    cheatsheet = get_object_or_404(UploadFile, id = file_id)
+    file_path = cheatsheet.file.path
+    response = FileResponse(open(file_path, 'rb'))
+    response['Content-Type'] = 'application/octet-stream'
+    response['Content-Disposition'] = f'attechment; filename="{cheatsheet.type_file}"'
+    return response
+
+
 @login_required
 def home(request):
     print(UploadFile.objects.get(id=2).file)
@@ -185,7 +198,7 @@ def refuse_file(request, file_id):
                 status = '3',
                 note = request.POST['note'],
             )
-        if request.user.user_type == 'مديؤ':
+        if request.user.user_type == 'مدير':
             status_file = StatusFile.objects.create(
                 file = file.file,
                 user = file.file.user,

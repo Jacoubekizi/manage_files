@@ -15,6 +15,7 @@ urlpatterns = [
     path('review-file/<str:file_id>/', review, name='review_file'),
     path('refuse-file/<str:file_id>/', refuse_file, name='refuse_file'),
     path('review-file/', order_file, name='order_file'),
+    path('download/<int:file_id>/', downloadsheet, name='download-file'),
     path('accounts/login/', auth_views.LoginView.as_view(template_name = 'auth/login.html', next_page = 'home', redirect_authenticated_user = True), name='login'),
     path('logout/',logout_user, name = 'logout'),
 ]
