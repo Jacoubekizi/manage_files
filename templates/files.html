@@ -18,7 +18,7 @@
             <thead class="thead-dark">
                 <tr>
                     <th>اسم الملف</th>
-                    <th>وصف الملف</th>
+                    <th>ملاحظات</th>
                     <th>اسم المستخدم</th>
                     <th>نوع الملف</th>
                     <th>حالة الملف</th>
@@ -28,8 +28,13 @@
             <tbody>
                 {% for file in files %}
                 <tr>
-                    <td><a href="{% url 'file_info' file.file.id %}">{{file.file.file}}</a>
+                    <td>
+                    {% if file.status == '3' %}
+                        {{file.file.file}}
+                    {% else %}    
+                        <a href="{% url 'file_info' file.file.id %}">{{file.file.file}}</a>
                         <small class="text-muted d-block"></small><small  class="btn btn-success" style="background-color: white;"><a href="{% url 'download-file' file.file.id %}">download</a></small>
+                    {% endif %}
                     </td>
                     <td>{{file.note}}</td>
                     <td>{{file.user.username}}</td>
@@ -61,7 +66,7 @@
                         {% elif request.user.user_type == 'مساعد' and  file.status == '2' %}
                         <span><a href="{% url 'review_file' file.id %}" class="btn btn-primary">مراجعة</a></span>
                         {% elif request.user.user_type == 'مساعد' and  file.status == '3' and file.is_proccessed == False%}
-                        <span><a href="{% url 'edit_file' file.file.id %}" class="btn btn-primary">تعديل</a></span>
+                        {{'مرفوض' | escape}}
                         {% elif not file.status == '6' and request.user.user_type == 'مدقق'  %}
                         <span><a href="{% url 'accept_file' file.id %}" class="btn btn-success">تحقق</a></span>
                         <span><a href="{% url 'review_file' file.id %}" class="btn btn-primary">مراجعة</a></span>

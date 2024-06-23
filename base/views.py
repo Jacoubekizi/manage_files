@@ -19,7 +19,7 @@ def downloadsheet(request, file_id):
 
 @login_required
 def home(request):
-    print(UploadFile.objects.get(id=2).file)
+    
     if request.method == 'GET':
         
         if request.user.user_type == 'مساعد':
@@ -41,7 +41,7 @@ def home(request):
             
             context = {
                 'files':StatusFile.objects.filter((Q(status='4') | Q(status='5')) & Q(is_proccessed=False)),
-            }
+            }   
 
         return render(request, 'files.html', context)
     
@@ -99,14 +99,14 @@ def get_info_file(request, file_id):
 @login_required
 def edit_file(request, file_id):
     file = get_object_or_404(UploadFile, pk=file_id)
-    f = file.statusfile_set.all().first()
-    f.is_proccessed = True
-    f.save()
+    # f = file.statusfile_set.all().first()
+    # f.is_proccessed = True
+    # f.save()
     if request.method == 'POST':
         form = FormUploadFile(request.POST, request.FILES, instance=file)
         if form.is_valid():
-            form.save(commit=False)
-            file.file = request.POST['file']
+            # form.save(commit=False)
+            # file.file = request.POST['file']
             form.save()
         return redirect('home')
     context = {

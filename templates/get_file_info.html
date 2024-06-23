@@ -15,15 +15,24 @@
                     <th>اسم الملف</th>
                     <th>اسم المستخدم</th>
                     <th>نوع الملف</th>
-                    <th>ملاحظات</th>
+                    <th>وصف الملف</th>
                     <th>حالة الملف</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td><a href="{% url 'edit_file' file.id %}">{{file.file}}</a>
+                    <td>
+                        {% if request.user.user_type == 'مساعد' and request.user.uploadfile_set.all.first.user == request.user%}
+                        <a href="{% url 'edit_file' file.id %}">{{file.file}}</a>
+                        <small class="text-muted d-block"></small>
+                        {% elif request.user.user_type == 'مدقق' and request.user.upload_file_set.get.user == request.user %}
+                        <a href="{% url 'edit_file' file.id %}">{{file.file}}</a>
+                        <small class="text-muted d-block"></small>
+                        {% else %}
+                        {{file.file}}
                         <small class="text-muted d-block"></small>
                     </td>
+                    {% endif %}
                     <td>{{file.user.username}}</td>
                     <td>{{file.type_file}}</td>
                     <td>{{file.note}}</td>
